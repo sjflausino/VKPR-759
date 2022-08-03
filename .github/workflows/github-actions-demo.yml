@@ -1,6 +1,6 @@
 name: "Plan / Test on Pull Request"
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
@@ -16,9 +16,6 @@ jobs:
         with:
           # terraform_version: 0.13.0:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Run terraform fmt check
-        run: terraform fmt -check -diff -recursive ./terraform  
   
   plan:
     name: Plan
