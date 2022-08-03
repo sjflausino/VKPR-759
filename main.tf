@@ -20,4 +20,11 @@ provider "aws" {
     
 }
 
+resource "aws_instance" "web" {
+  ami           = "ami-020ef1e2f6c2cc6d6"
+  instance_type = "t2.micro"
+    tags = {
+    Name = "HelloWorld"
+  }
+}
 
