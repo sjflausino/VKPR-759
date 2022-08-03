@@ -14,12 +14,14 @@ terraform {
 }
 
 credentials "app.terraform.io" {
-  token = ${{secret.TF_API_TOKEN}}
+  token = var.mamaco_porteiro
 }
 
 provider "aws" {
   region        = "us-east-1"
-  access_key    = ${{secret.AWS_ACCESS_KEY_ID}}
-  secret_key    = ${{secret.AWS_SECRET_ACCESS_KEY}}
+  access_key    = var.aws_access_key_id
+  secret_key    = var.aws_secret_access_key
     
 }
+
+
