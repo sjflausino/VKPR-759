@@ -39,7 +39,8 @@ jobs:
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
-      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
+      - run:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
