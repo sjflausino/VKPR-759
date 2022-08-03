@@ -36,8 +36,8 @@ jobs:
         id: plan
         if: github.event_name == 'pull_request'
         env:
-          TF_VAR_aws_access_key_id: "${{ secret.AWS_ACCESS_KEY_ID }}"
-          TF_VAR_aws_secret_access_key: "${{ secret.AWS_SECRET_ACCESS_KEY }}"         
+          TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
@@ -77,6 +77,6 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
-          TF_VAR_aws_access_key_id: ${{ secret.AWS_ACCESS_KEY_ID }}
-          TF_VAR_aws_secret_access_key: ${{ secret.AWS_SECRET_ACCESS_KEY }}                  
+          TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}     
         run: terraform apply -auto-approve -input=false
