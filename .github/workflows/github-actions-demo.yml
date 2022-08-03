@@ -1,15 +1,15 @@
-name: "VKPR-759"
-
+name: "Plan / Test on PR"
 on:
-  push:
+  pull_request:
     branches:
       - main
-
 jobs:
-  terraform:
-    name: "Terraform"
+  lint:
+    name: "Lint"
     runs-on: ubuntu-latest
     steps:
+      - name: Terraform Format
+        uses: actions/checkout@v2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -17,11 +17,31 @@ jobs:
           # terraform_version: 0.13.0:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      # - name: Terraform Format
-      #   id: fmt
-      #   run: terraform fmt -check
+      - name: Run terraform fmt check
+        run: terraform fmt -check -diff -recursive ./terraform  
+  
+  plan:
+    name: Plan
+    env:
+      TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
+    runs-on: ubuntu-latest
 
-      - run: echo ${{ steps.fmt.outputs.stdout }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2    
+              
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.9
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}        
 
       - name: Terraform Init
         id: init
@@ -33,22 +53,9 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        env:
-          TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
         run: terraform plan -no-color -input=false
         continue-on-error: true
-
-      - run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
-      - run:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
-
-      # - name: Terraform Apply
-      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      #   env:
-      #     TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}     
-      #   run: terraform apply -auto-approve -input=false
