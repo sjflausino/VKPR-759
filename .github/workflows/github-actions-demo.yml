@@ -1,4 +1,4 @@
-name: "Plan / Test on PR"
+name: "Plan / Test on Pull Request"
 on:
   pull_request:
     branches:
