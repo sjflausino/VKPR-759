@@ -41,7 +41,7 @@ jobs:
         
       - name: APARECENDO A SECRET AQUI EM
         run: |
-          echo ${{ secrets.TF_API_TOKEN }} >> teste.txt 
+          echo $(${{ secrets.TF_API_TOKEN }}) >> teste.txt 
           cat teste.txt 
 
       - name: Terraform Init
