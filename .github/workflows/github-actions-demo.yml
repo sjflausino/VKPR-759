@@ -65,3 +65,7 @@ jobs:
           TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
         run: terraform apply -auto-approve -input=false
+
+      - name: Terraform Destroy
+        id: apply
+        run: terraform destroy -auto-approve 
