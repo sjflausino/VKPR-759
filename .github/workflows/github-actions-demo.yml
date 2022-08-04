@@ -39,11 +39,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
-      - name: APARECENDO A SECRET AQUI EM
-        run: |
-          echo $(${{ secrets.TF_API_TOKEN }}) >> teste.txt 
-          cat teste.txt 
-
       - name: Terraform Init
         id: init
         run: terraform init
