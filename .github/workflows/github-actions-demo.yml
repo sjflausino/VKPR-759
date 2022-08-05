@@ -64,7 +64,8 @@ jobs:
       - name: Cat no arquivo criado 
         if: steps.plan.outcome != 'failure'
         run: |       
-          tree $TERRAFORM_CLI_PATH
+          cd $TERRAFORM_CLI_PATH
+          ls $TERRAFORM_CLI_PATH
           echo AQUI EM 
 
       - name: Terraform Destroy
