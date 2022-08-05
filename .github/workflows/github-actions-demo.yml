@@ -63,8 +63,7 @@ jobs:
 
       - name: Cat no arquivo criado 
         if: steps.plan.outcome != 'failure'
-        run: |
-          apt-install tree        
+        run: |       
           tree $TERRAFORM_CLI_PATH
           echo AQUI EM 
 
