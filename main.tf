@@ -20,7 +20,7 @@ resource "aws_instance" "teste" {
   }
 }
 resource "aws_s3_bucket" "b" {
-  bucket = "my-tf-test-bucket"
+  bucket = "VKPR-759"
 
   tags = {
     Name        = "My bucket"
