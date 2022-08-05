@@ -20,3 +20,14 @@ resource "aws_instance" "teste" {
   }
 }
 
+resource "aws_s3_bucket" "bucket" {
+  bucket = "my-tf-test-bucket"
+  tags = {
+    Name        = "My bucket"
+  }
+}
+
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.bucket.id
+  acl    = "private"
+}
