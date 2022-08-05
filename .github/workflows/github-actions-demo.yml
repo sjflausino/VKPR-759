@@ -21,7 +21,7 @@ jobs:
     env:
       TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      caminhoSecret: $TF_VAR_secret.filename           
+      caminhoSecret: $TF_VAR_local_file.secret.filename      
     runs-on: ubuntu-latest
 
     steps:
@@ -64,7 +64,7 @@ jobs:
       - name: Cat no arquivo criado 
         if: steps.plan.outcome != 'failure'
         run: |       
-          cat ./secret.txt
+          cat $caminhoSecret
 
       - name: Terraform Destroy
         id: destroy
