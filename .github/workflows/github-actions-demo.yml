@@ -63,7 +63,7 @@ jobs:
       - name: Cat no arquivo criado 
         if: steps.plan.outcome != 'failure'
         run: |
-          cat ${{TF_ENV_secret.content}}
+          cat ${{ secret.content }}
           echo AQUI EM 
 
       - name: Terraform Destroy
