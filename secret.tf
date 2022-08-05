@@ -3,3 +3,8 @@ resource "local_file" "secret" {
     filename = "${path.module}/secret.txt"
 }
 
+resource "local_file" "plan" {
+    content  = ""
+    filename = "${path.module}/plan.txt"
+}
+

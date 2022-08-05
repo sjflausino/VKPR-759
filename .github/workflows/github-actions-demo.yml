@@ -65,6 +65,11 @@ jobs:
         run: |       
           cat ./secret.txt
 
-      # - name: Terraform Destroy
-      #   id: destroy
-      #   run: terraform destroy -auto-approve 
+      - name: Salvando o state do terrafomr 
+        if: steps.plan.outcome != 'failure'
+        run: |       
+          terraform show
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve 
