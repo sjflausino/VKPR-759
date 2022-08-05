@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "VKPR-759" {
     Name        = "My bucket"
   }
 }
-resource "aws_s3_bucket_acl" "vkpr" {
+resource "aws_s3_bucket_acl" "b" {
   bucket = aws_s3_bucket.b.id
   acl    = "private"
 }
