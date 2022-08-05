@@ -65,10 +65,21 @@ jobs:
         run: |       
           cat ./secret.txt
 
-      - name: Salvando o state do terrafomr 
+      - name: Salvando o state do terraform 
         if: steps.plan.outcome != 'failure'
         run: |       
-          terraform show
+          echo $(terraform show) > ./plan.txt
+
+      - name: Fazendo backup do plan
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: ./plan.txt
+          destination: s3://vkpr/plan.txt
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-1
+
 
       - name: Terraform Destroy
         id: destroy
