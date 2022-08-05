@@ -64,7 +64,7 @@ jobs:
       - name: Cat no arquivo criado 
         if: steps.plan.outcome != 'failure'
         run: |
-          cat ${{ caminhoSecret }}
+          cat $caminhoSecret
           echo AQUI EM 
 
       - name: Terraform Destroy
