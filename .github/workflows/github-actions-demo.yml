@@ -67,7 +67,7 @@ jobs:
           cd $TERRAFORM_CLI_PATH
           ls $TERRAFORM_CLI_PATH
 
-          echo $caminhoSecret
+          echo env.caminhoSecret
           echo AQUI EM 
 
       - name: Terraform Destroy
