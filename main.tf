@@ -16,17 +16,17 @@ resource "aws_instance" "teste" {
   ami                = "ami-090fa75af13c156b4"
   instance_type = "t2.micro"
     tags = {
-    Name             = "HelloWorld"
+    Name             = "VKPR-759"
   }
 }
 
-resource "aws_s3_bucket" "b" {
+resource "aws_s3_bucket" "VKPR-759" {
   bucket = "my-tf-test-bucket"
   tags = {
     Name        = "My bucket"
   }
 }
-resource "aws_s3_bucket_acl" "example" {
+resource "aws_s3_bucket_acl" "vkpr" {
   bucket = aws_s3_bucket.b.id
   acl    = "private"
 }
