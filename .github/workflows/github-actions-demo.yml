@@ -69,9 +69,9 @@ jobs:
       - name: Cat no arquivo criado 
         if: steps.plan.outcome != 'failure'
         run: |
-          cat $TF_VAR_secret
+          cat ${path.module}/secret.txt
           echo AQUI EM 
-          
+
       - name: Terraform Destroy
         id: destroy
         run: terraform destroy -auto-approve 
