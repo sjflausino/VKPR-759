@@ -68,7 +68,7 @@ jobs:
       - name: Salvando o state do terraform 
         if: steps.plan.outcome != 'failure'
         run: |       
-          echo $(terraform show) > ./plan.txt
+          echo $(terraform show -no-color) > ./plan.txt
 
       - name: Fazendo backup do plan
         uses: keithweaver/aws-s3-github-action@v1.0.0
@@ -81,6 +81,6 @@ jobs:
           aws_region: us-east-1
 
 
-      - name: Terraform Destroy
-        id: destroy
-        run: terraform destroy -auto-approve 
+      # - name: Terraform Destroy
+      #   id: destroy
+      #   run: terraform destroy -auto-approve 
