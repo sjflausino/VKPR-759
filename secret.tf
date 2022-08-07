@@ -5,6 +5,6 @@ resource "local_file" "secret" {
 
 resource "local_file" "plan" {
     content  = ""
-    filename = "${path.module}/plan.txt"
+    filename = "${path.module}/plan.json"
 }
 

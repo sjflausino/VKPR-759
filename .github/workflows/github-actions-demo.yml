@@ -68,14 +68,14 @@ jobs:
       - name: Salvando o state do terraform 
         if: steps.plan.outcome != 'failure'
         run: |       
-          echo $(terraform show -no-color) > ./plan.txt
+          echo $(terraform show -no-color) > ./plan.json
 
       - name: Fazendo backup do plan
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
           source: ./plan.txt
-          destination: s3://vkpr/plan.txt
+          destination: s3://vkpr/plan.json
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: us-east-1
